@@ -1,5 +1,7 @@
 # Embedded Controller (EC)
 
+This is a fork of the ChromiumOS embedded controller firmware. It contains only the board banshee, aka the Framework Laptop Chromebook. This version of the banshee EC is designed to make the keyboard layout standard (and add functionality to function keys) so that the Chromebook can be used with Linux.
+
 [TOC]
 
 > **Note** - This document covers the legacy Chrome EC implementation. The
