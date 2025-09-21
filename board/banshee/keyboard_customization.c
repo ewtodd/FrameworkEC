@@ -300,20 +300,15 @@ int hotkey_F1_F12(uint16_t *key_code, uint16_t fn, int8_t pressed)
 			*key_code = SCANCODE_NEXT_TRACK;
 		break;
 
-	case SCANCODE_F7: /* DISPLAY_BRIGHTNESS_DOWN */
-		if (fn_table_media_set(pressed, KB_FN_F7)) {
-			*key_code = 0xE0E0; // KEY_BRIGHTNESSDOWN (Linux input
-					    // code 224)
-			return EC_SUCCESS;
-		}
-		break;
-	case SCANCODE_F8: /* DISPLAY_BRIGHTNESS_UP */
-		if (fn_table_media_set(pressed, KB_FN_F8)) {
-			*key_code = 0xE0E1; // KEY_BRIGHTNESSUP (Linux input
-					    // code 225)
-			return EC_SUCCESS;
-		}
-		break;
+		//	case SCANCODE_F7: /* DISPLAY_BRIGHTNESS_DOWN */
+		//		if (fn_table_media_set(pressed, KB_FN_F7))
+		//			*key_code = SCANCODE_BRIGHTNESS_DOWN;
+		//
+		//		break;
+		//	case SCANCODE_F8: /* DISPLAY_BRIGHTNESS_UP */
+		//		if (fn_table_media_set(pressed, KB_FN_F8))
+		//			*key_code = SCANCODE_BRIGHTNESS_UP;
+		//		break;
 	default:
 		return EC_SUCCESS;
 	}
