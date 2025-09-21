@@ -700,7 +700,7 @@ __overridable void svdm_exit_dp_mode(int port)
 }
 
 #ifdef CONFIG_CMD_MFALLOW
-static int command_mfallow(int argc, const char **argv)
+static int command_mfallow(int argc,  char **argv)
 {
 	char *e;
 	int port;

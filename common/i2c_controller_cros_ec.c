@@ -282,7 +282,7 @@ scan_bus_exit:
 	ccputs("\n");
 }
 
-static int command_scan(int argc, const char **argv)
+static int command_scan(int argc, char **argv)
 {
 	int port;
 	char *e;
@@ -317,7 +317,7 @@ DECLARE_CONSOLE_COMMAND(i2cscan, command_scan, "i2cscan [port]",
 #endif
 
 #ifdef CONFIG_CMD_I2C_XFER
-static int command_i2cxfer(int argc, const char **argv)
+static int command_i2cxfer(int argc, char **argv)
 {
 	int port;
 	uint16_t addr_flags;
@@ -486,7 +486,7 @@ static const char *const i2c_freq_str[] = {
 
 BUILD_ASSERT(ARRAY_SIZE(i2c_freq_str) == I2C_FREQ_COUNT + 1);
 
-static int command_i2c_speed(int argc, const char **argv)
+static int command_i2c_speed(int argc, char **argv)
 {
 	int port;
 	char *e;

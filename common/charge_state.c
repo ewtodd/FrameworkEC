@@ -2238,7 +2238,7 @@ DECLARE_HOST_COMMAND(EC_CMD_CHARGE_STATE, charge_command_charge_state,
 
 #ifdef CONFIG_CMD_PWR_AVG
 
-static int command_pwr_avg(int argc, const char **argv)
+static int command_pwr_avg(int argc, char **argv)
 {
 	int avg_mv;
 	int avg_ma;
@@ -2262,7 +2262,7 @@ DECLARE_CONSOLE_COMMAND(pwr_avg, command_pwr_avg, NULL,
 
 #endif /* CONFIG_CMD_PWR_AVG */
 
-static int command_chgstate(int argc, const char **argv)
+static int command_chgstate(int argc, char **argv)
 {
 	int rv;
 	int val;

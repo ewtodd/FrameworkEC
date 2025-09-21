@@ -1172,7 +1172,7 @@ static const char *const state_name[] = {
 	"on",
 };
 
-test_mockable_static int command_power(int argc, const char **argv)
+test_mockable_static int command_power(int argc, char **argv)
 {
 	int v;
 

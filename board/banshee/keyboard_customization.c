@@ -149,6 +149,57 @@ void set_keycap_label(uint8_t row, uint8_t col, uint8_t val)
 }
 #endif
 
+#ifdef CONFIG_KEYBOARD_BACKLIGHT
+enum backlight_brightness {
+	KEYBOARD_BL_BRIGHTNESS_OFF = 0,
+	KEYBOARD_BL_BRIGHTNESS_LOW = 20,
+	KEYBOARD_BL_BRIGHTNESS_MED = 50,
+	KEYBOARD_BL_BRIGHTNESS_HIGH = 100,
+};
+
+int hx20_kblight_enable(int enable)
+{
+	/*Sets PCR mask for low power handling*/
+	pwm_enable(PWM_CH_KBLIGHT, enable);
+
+	return EC_SUCCESS;
+}
+
+static int hx20_kblight_set_brightness(int percent)
+{
+	pwm_set_duty(PWM_CH_KBLIGHT, percent);
+	return EC_SUCCESS;
+}
+
+static int hx20_kblight_get_brightness(void)
+{
+	return pwm_get_duty(PWM_CH_KBLIGHT);
+}
+
+static int hx20_kblight_init(void)
+{
+	pwm_set_duty(PWM_CH_KBLIGHT, 0);
+	return EC_SUCCESS;
+}
+
+const struct kblight_drv kblight_hx20 = {
+	.init = hx20_kblight_init,
+	.set = hx20_kblight_set_brightness,
+	.get = hx20_kblight_get_brightness,
+	.enable = hx20_kblight_enable,
+};
+
+void board_kblight_init(void)
+{
+	uint8_t current_kblight = 0;
+	if (system_get_bbram(SYSTEM_BBRAM_IDX_KBSTATE, &current_kblight) ==
+	    EC_SUCCESS)
+		kblight_set(current_kblight & 0x7F);
+	kblight_register(&kblight_hx20);
+	kblight_enable(current_kblight);
+}
+#endif
+
 #ifdef CONFIG_KEYBOARD_CUSTOMIZATION_COMBINATION_KEY
 #define FN_PRESSED BIT(0)
 #define FN_LOCKED BIT(1)
@@ -226,7 +277,7 @@ int hotkey_F1_F12(uint16_t *key_code, uint16_t fn, int8_t pressed)
 	switch (prss_key) {
 	case SCANCODE_F1: /* SPEAKER_MUTE */
 		if (fn_table_media_set(pressed, KB_FN_F1))
-			*key_code = SCANCODE_VOLUME_MUTE;
+			*key_code = SCANCODE_BRIGHTNESS_DOWN;
 		break;
 	case SCANCODE_F2: /* VOLUME_DOWN */
 		if (fn_table_media_set(pressed, KB_FN_F2))
@@ -248,40 +299,20 @@ int hotkey_F1_F12(uint16_t *key_code, uint16_t fn, int8_t pressed)
 		if (fn_table_media_set(pressed, KB_FN_F6))
 			*key_code = SCANCODE_NEXT_TRACK;
 		break;
-	case SCANCODE_F7: /* TODO: DIM_SCREEN */
+
+	case SCANCODE_F7: /* DISPLAY_BRIGHTNESS_DOWN */
 		if (fn_table_media_set(pressed, KB_FN_F7)) {
-			*key_code = SCANCODE_BRIGHTNESS_DOWN;
+			*key_code = 0xE0E0; // KEY_BRIGHTNESSDOWN (Linux input
+					    // code 224)
+			return EC_SUCCESS;
 		}
 		break;
-	case SCANCODE_F8: /* TODO: BRIGHTEN_SCREEN */
+	case SCANCODE_F8: /* DISPLAY_BRIGHTNESS_UP */
 		if (fn_table_media_set(pressed, KB_FN_F8)) {
-			*key_code = SCANCODE_BRIGHTNESS_UP;
+			*key_code = 0xE0E1; // KEY_BRIGHTNESSUP (Linux input
+					    // code 225)
+			return EC_SUCCESS;
 		}
-		break;
-	case SCANCODE_F9: /* EXTERNAL_DISPLAY */
-		if (fn_table_media_set(pressed, KB_FN_F9)) {
-			return EC_ERROR_UNIMPLEMENTED;
-		}
-		break;
-	case SCANCODE_F10: /* FLIGHT_MODE */
-		if (fn_table_media_set(pressed, KB_FN_F10)) {
-			return EC_ERROR_UNIMPLEMENTED;
-		}
-		break;
-	case SCANCODE_F11:
-		/*
-		 * TODO this might need an
-		 * extra key combo of:
-		 * 0xE012 0xE07C to simulate
-		 * PRINT_SCREEN
-		 */
-		if (fn_table_media_set(pressed, KB_FN_F11))
-			*key_code = 0xE07C;
-		break;
-	case SCANCODE_F12: /* TODO: FRAMEWORK */
-		/* Media Select scan code */
-		if (fn_table_media_set(pressed, KB_FN_F12))
-			*key_code = 0xE050;
 		break;
 	default:
 		return EC_SUCCESS;
@@ -329,12 +360,6 @@ int hotkey_special_key(uint16_t *key_code, int8_t pressed)
 	return EC_SUCCESS;
 }
 
-enum backlight_brightness {
-	KEYBOARD_BL_BRIGHTNESS_OFF = 0,
-	KEYBOARD_BL_BRIGHTNESS_LOW = 20,
-	KEYBOARD_BL_BRIGHTNESS_MED = 50,
-	KEYBOARD_BL_BRIGHTNESS_HIGH = 100,
-};
 int functional_hotkey(uint16_t *key_code, int8_t pressed)
 {
 	const uint16_t prss_key = *key_code;
@@ -390,13 +415,13 @@ int functional_hotkey(uint16_t *key_code, int8_t pressed)
 						KEYBOARD_BL_BRIGHTNESS_HIGH;
 					break;
 				case KEYBOARD_BL_BRIGHTNESS_HIGH:
-					kblight_enable(0);
+					hx20_kblight_enable(0);
 					bl_brightness =
 						KEYBOARD_BL_BRIGHTNESS_OFF;
 					break;
 				default:
 				case KEYBOARD_BL_BRIGHTNESS_OFF:
-					kblight_enable(1);
+					hx20_kblight_enable(1);
 					bl_brightness =
 						KEYBOARD_BL_BRIGHTNESS_LOW;
 					break;

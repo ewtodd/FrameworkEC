@@ -247,7 +247,7 @@ DECLARE_HOOK(HOOK_SECOND, thermal_control, HOOK_PRIO_TEMP_SENSOR_DONE);
 /*****************************************************************************/
 /* Console commands */
 
-static int command_thermalget(int argc, const char **argv)
+static int command_thermalget(int argc, char **argv)
 {
 	int i;
 
@@ -266,7 +266,7 @@ static int command_thermalget(int argc, const char **argv)
 DECLARE_CONSOLE_COMMAND(thermalget, command_thermalget, NULL,
 			"Print thermal parameters (degrees Kelvin)");
 
-static int command_thermalset(int argc, const char **argv)
+static int command_thermalset(int argc, char **argv)
 {
 	unsigned int n;
 	int i, val;

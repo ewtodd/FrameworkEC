@@ -67,7 +67,7 @@ static void dump_pe(int port)
 	}
 }
 
-static int command_pe(int argc, const char **argv)
+static int command_pe(int argc, char **argv)
 {
 	int port;
 	char *e;
@@ -111,7 +111,7 @@ static const char *const dp21_cable_speed[] = {
 	[DP_UHBR20] = "UHBR20",
 };
 
-static int command_cable(int argc, const char **argv)
+static int command_cable(int argc, char **argv)
 {
 	int port;
 	char *e;

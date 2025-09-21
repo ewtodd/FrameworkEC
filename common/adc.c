@@ -32,7 +32,7 @@ static int print_one_adc(int channel)
 	return EC_SUCCESS;
 }
 
-static int command_adc(int argc, const char **argv)
+static int command_adc(int argc, char **argv)
 {
 	int i, ret;
 

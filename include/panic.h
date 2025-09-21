@@ -221,7 +221,7 @@ int command_crash_nested_handler(void);
  * @param argv CLI arguments
  * @return int Return value
  */
-int test_command_crash(int argc, const char **argv);
+int test_command_crash(int argc, char **argv);
 #endif /* TEST_BUILD*/
 
 #ifdef __cplusplus

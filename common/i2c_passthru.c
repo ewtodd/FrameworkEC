@@ -360,7 +360,7 @@ DECLARE_HOST_COMMAND(EC_CMD_I2C_PASSTHRU_PROTECT, i2c_command_passthru_protect,
 /* Console commands */
 
 #ifdef CONFIG_CMD_I2C_PROTECT
-static int command_i2cprotect(int argc, const char **argv)
+static int command_i2cprotect(int argc, char **argv)
 {
 	if (argc == 1) {
 		int i, port;

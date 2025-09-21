@@ -262,7 +262,7 @@ static inline int cond_went_true(cond_t *c)
 /* Parse command-line arguments given integer shift value to obtain
  * offset and size.
  */
-int parse_offset_size(int argc, const char **argv, int shift, int *offset,
+int parse_offset_size(int argc, char **argv, int shift, int *offset,
 		      int *size);
 
 /**

@@ -194,7 +194,7 @@ static void set_duty_cycle(int fan, int percent)
 /*****************************************************************************/
 /* Console commands */
 
-static int cc_fanauto(int argc, const char **argv)
+static int cc_fanauto(int argc, char **argv)
 {
 	char *e;
 	int fan = 0;
@@ -232,7 +232,7 @@ static int is_powered(int fan)
 	return is_pgood;
 }
 
-static int cc_faninfo(int argc, const char **argv)
+static int cc_faninfo(int argc, char **argv)
 {
 	static const char *const human_status[] = { "not spinning", "changing",
 						    "locked", "frustrated" };
@@ -269,7 +269,7 @@ static int cc_faninfo(int argc, const char **argv)
 }
 DECLARE_CONSOLE_COMMAND(faninfo, cc_faninfo, NULL, "Print fan info");
 
-static int cc_fanset(int argc, const char **argv)
+static int cc_fanset(int argc, char **argv)
 {
 	const char *rpm_str;
 	int rpm;
@@ -329,7 +329,7 @@ static int cc_fanset(int argc, const char **argv)
 DECLARE_CONSOLE_COMMAND(fanset, cc_fanset, "[fan] (rpm | pct%)",
 			"Set fan speed");
 
-static int cc_fanduty(int argc, const char **argv)
+static int cc_fanduty(int argc, char **argv)
 {
 	const char *percent_str;
 	int percent = 0;

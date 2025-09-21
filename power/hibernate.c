@@ -119,7 +119,7 @@ DECLARE_HOOK(HOOK_AC_CHANGE, change_detected, HOOK_PRIO_DEFAULT);
 /*
  * EC Console command to get/set the hibernation delay
  */
-static int command_hibernation_delay(int argc, const char **argv)
+static int command_hibernation_delay(int argc, char **argv)
 {
 	char *e;
 	uint32_t remaining;

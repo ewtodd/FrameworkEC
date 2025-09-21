@@ -631,7 +631,7 @@ static int parse_params(const char *s, uint8_t *params)
 	return len;
 }
 
-static int command_host_command(int argc, const char **argv)
+static int command_host_command(int argc, char **argv)
 {
 	struct host_cmd_handler_args args;
 	char *cmd_params;
@@ -703,7 +703,7 @@ DECLARE_CONSOLE_COMMAND(hostcmd, command_host_command, "cmd ver param",
 #endif /* CONFIG_CMD_HOSTCMD */
 
 #ifdef CONFIG_CMD_HCDEBUG
-static int command_hcdebug(int argc, const char **argv)
+static int command_hcdebug(int argc, char **argv)
 {
 	if (argc >= 3)
 		return EC_ERROR_PARAM_COUNT;

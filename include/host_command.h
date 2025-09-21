@@ -310,14 +310,13 @@ __error("This function should only be called from Zephyr OS code")
  * Register a host command handler with
  * commands starting at offset 0x0000
  */
+
 #define DECLARE_HOST_COMMAND(command, routine, version_mask)                   \
-	static enum ec_status(routine)(struct host_cmd_handler_args * args);   \
 	const struct host_command __keep __no_sanitize_address EXPAND(0x0000,  \
 								      command) \
 		__attribute__((section(".rodata.hcmds." EXPANDSTR(             \
 			0x0000, command)))) = { routine, command,              \
 						version_mask }
-
 /*
  * Register a private host command handler with
  * commands starting at offset EC_CMD_BOARD_SPECIFIC_BASE,
@@ -402,7 +401,8 @@ stub_send_response_callback(struct host_cmd_handler_args *args)
 #define BUILD_HOST_COMMAND(CMD, VERSION, RESPONSE, PARAMS)          \
 	{                                                           \
 		.send_response = stub_send_response_callback,       \
-		.command = (CMD), .version = (VERSION),             \
+		.command = (CMD),                                   \
+		.version = (VERSION),                               \
 		COND_CODE_0(IS_EMPTY(PARAMS),                       \
 			    (.params = &(PARAMS),                   \
 			     .params_size = sizeof(PARAMS)),        \

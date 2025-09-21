@@ -2523,7 +2523,7 @@ static void prl_event_log_append(enum prl_event_log_state_kind kind, int port)
 			     ARRAY_SIZE(prl_event_log_buffer)] = entry;
 }
 
-static int command_prllog(int argc, const char **argv)
+static int command_prllog(int argc, char **argv)
 {
 	if (argc == 2 && strcmp("clear", argv[1]) == 0) {
 		/* Clear buffer contents */

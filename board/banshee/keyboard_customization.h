@@ -85,4 +85,7 @@ enum kb_fn_table {
 	KB_FN_SPACE = BIT(22),
 };
 
+#ifdef CONFIG_KEYBOARD_BACKLIGHT
+int hx20_kblight_enable(int enable);
+#endif
 #endif /* __KEYBOARD_CUSTOMIZATION_H */

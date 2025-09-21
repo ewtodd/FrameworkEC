@@ -993,7 +993,7 @@ static void i2c_test_status(struct i2c_test_results *i2c_test, int test_dev)
 }
 
 #define I2C_STRESS_TEST_DATA_VERIFY_RETRY_COUNT 3
-static int command_i2ctest(int argc, const char **argv)
+static int command_i2ctest(int argc, char **argv)
 {
 	char *e;
 	int i, j, rv;

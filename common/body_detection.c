@@ -298,7 +298,7 @@ bool body_detect_get_spoof(void)
 	return spoof_enable;
 }
 
-static int command_setbodydetectionmode(int argc, const char **argv)
+static int command_setbodydetectionmode(int argc, char **argv)
 {
 	if (argc == 1) {
 		print_body_detect_mode();

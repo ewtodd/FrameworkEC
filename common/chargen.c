@@ -156,7 +156,7 @@ DECLARE_DEFERRED(run_chargen);
  *
  * Hitting 'x' on the keyboard stops the generator.
  */
-static int command_chargen(int argc, const char **argv)
+static int command_chargen(int argc, char **argv)
 {
 	int wrap_value = 0;
 	uint32_t seq_number = 0;

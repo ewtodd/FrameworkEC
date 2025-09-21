@@ -269,7 +269,7 @@ int cond_went(cond_t *c, int val)
  * *offset<0.  If argc<shift+1, leaves size unchanged, returning error if
  * *size<0.
  */
-int parse_offset_size(int argc, const char **argv, int shift, int *offset,
+int parse_offset_size(int argc, char **argv, int shift, int *offset,
 		      int *size)
 {
 	char *e;

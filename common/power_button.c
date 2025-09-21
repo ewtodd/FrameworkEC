@@ -230,7 +230,7 @@ void power_button_simulate_press(unsigned int duration)
 /*****************************************************************************/
 /* Console commands */
 
-static int command_powerbtn(int argc, const char **argv)
+static int command_powerbtn(int argc, char **argv)
 {
 	int ms = 200; /* Press duration in ms */
 	char *e;

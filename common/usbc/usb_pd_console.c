@@ -18,7 +18,7 @@
 static
 #endif
 	int
-	command_pd(int argc, const char **argv)
+	command_pd(int argc, char **argv)
 {
 	int port;
 	char *e;

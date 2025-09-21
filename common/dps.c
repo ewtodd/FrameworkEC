@@ -565,7 +565,7 @@ void check_battery_present(void)
 }
 DECLARE_HOOK(HOOK_BATTERY_SOC_CHANGE, check_battery_present, HOOK_PRIO_DEFAULT);
 
-static int command_dps(int argc, const char **argv)
+static int command_dps(int argc, char **argv)
 {
 	int port = charge_manager_get_active_charge_port();
 	int input_pwr, vbus, input_curr;

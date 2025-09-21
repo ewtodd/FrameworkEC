@@ -31,7 +31,7 @@ struct test_util_tag {
 int __test_error_count;
 
 /* Weak reference function as an entry point for unit test */
-test_mockable void run_test(int argc, const char **argv)
+test_mockable void run_test(int argc, char **argv)
 {
 	/* This function should always be replaced by a real implementation of
 	 * run_test().
@@ -234,7 +234,7 @@ static void preserve_state(void)
 }
 DECLARE_HOOK(HOOK_SYSJUMP, preserve_state, HOOK_PRIO_DEFAULT);
 
-static int command_run_test(int argc, const char **argv)
+static int command_run_test(int argc, char **argv)
 {
 	run_test(argc, argv);
 	return EC_SUCCESS;

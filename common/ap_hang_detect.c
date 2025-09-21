@@ -135,7 +135,7 @@ DECLARE_HOST_COMMAND(EC_CMD_HANG_DETECT, hang_detect_host_command,
 /*****************************************************************************/
 /* Console command */
 
-static int command_hang_detect(int argc, const char **argv)
+static int command_hang_detect(int argc, char **argv)
 {
 	ccprintf("reboot timeout: %d(s)\n", reboot_timeout_sec);
 	ccprintf("bootstatus: %02x\n", bootstatus);

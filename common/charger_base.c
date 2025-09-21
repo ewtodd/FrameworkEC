@@ -594,7 +594,7 @@ bool base_check_extpower(int ac, int prev_ac)
 	return zero_ac;
 }
 
-static int command_chgdualdebug(int argc, const char **argv)
+static int command_chgdualdebug(int argc, char **argv)
 {
 	int val;
 	char *e;

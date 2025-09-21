@@ -718,7 +718,7 @@ void tcpc_dump_registers(int port, const struct tcpc_reg_dump_map *reg,
 	}
 }
 
-static int command_tcpc_dump(int argc, const char **argv)
+static int command_tcpc_dump(int argc, char **argv)
 {
 	int port;
 

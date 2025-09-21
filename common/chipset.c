@@ -20,7 +20,7 @@
 /* Console commands */
 
 #ifdef CONFIG_CMD_POWER_AP
-static int command_apreset(int argc, const char **argv)
+static int command_apreset(int argc, char **argv)
 {
 	/* Force the chipset to reset */
 	ccprintf("Issuing AP reset...\n");
@@ -29,7 +29,7 @@ static int command_apreset(int argc, const char **argv)
 }
 DECLARE_CONSOLE_COMMAND(apreset, command_apreset, NULL, "Issue AP reset");
 
-static int command_apshutdown(int argc, const char **argv)
+static int command_apshutdown(int argc, char **argv)
 {
 	/*
 	 * TODO: Fix the problem that CHIPSET_SHUTDOWN_CONSOLE_CMD is

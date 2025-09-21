@@ -179,7 +179,7 @@ test_export_static void panic_log_corrupt(void)
 	panic_log->properties->checksum = -1;
 }
 
-static int command_panic_log(int argc, const char **argv)
+static int command_panic_log(int argc, char **argv)
 {
 	if ((argc == 1) || (argc == 2 && !strcasecmp(argv[1], "info"))) {
 		bool orig_frozen = panic_log_freeze(true);

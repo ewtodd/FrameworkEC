@@ -1192,7 +1192,7 @@ static int sysinfo(struct ec_response_sysinfo *info)
 	return EC_SUCCESS;
 }
 
-static int command_sysinfo(int argc, const char **argv)
+static int command_sysinfo(int argc, char **argv)
 {
 	struct ec_response_sysinfo info;
 	int rv;
@@ -1247,7 +1247,7 @@ DECLARE_HOST_COMMAND(EC_CMD_SYSINFO, host_command_sysinfo,
 #endif
 
 #ifdef CONFIG_CMD_SCRATCHPAD
-static int command_scratchpad(int argc, const char **argv)
+static int command_scratchpad(int argc, char **argv)
 {
 	int rv = EC_SUCCESS;
 	uint32_t scratchpad_value;
@@ -1277,7 +1277,7 @@ DECLARE_CONSOLE_COMMAND(scratchpad, command_scratchpad, "[val]",
 			"Get or set scratchpad value");
 #endif /* CONFIG_CMD_SCRATCHPAD */
 
-__maybe_unused static int command_hibernate(int argc, const char **argv)
+__maybe_unused static int command_hibernate(int argc, char **argv)
 {
 	int seconds = 0;
 	int microseconds = 0;
@@ -1348,7 +1348,7 @@ static void print_build_string(void)
 	ccprintf("\n");
 }
 
-static int command_version(int argc, const char **argv)
+static int command_version(int argc, char **argv)
 {
 	int board_version;
 	const char *fw_version;
@@ -1420,7 +1420,7 @@ static int command_version(int argc, const char **argv)
 DECLARE_SAFE_CONSOLE_COMMAND(version, command_version, NULL, "Print versions");
 
 #ifdef CONFIG_CMD_SYSJUMP
-static int command_sysjump(int argc, const char **argv)
+static int command_sysjump(int argc, char **argv)
 {
 	uint32_t addr;
 	char *e;
@@ -1464,7 +1464,7 @@ DECLARE_CONSOLE_COMMAND(sysjump, command_sysjump,
 			"Jump to a system image or address");
 #endif
 
-static int command_reboot(int argc, const char **argv)
+static int command_reboot(int argc, char **argv)
 {
 	int flags = SYSTEM_RESET_MANUALLY_TRIGGERED;
 	int i;
@@ -1511,7 +1511,7 @@ DECLARE_CONSOLE_COMMAND(
 	"Reboot the EC");
 
 #ifdef CONFIG_CMD_SYSLOCK
-static int command_system_lock(int argc, const char **argv)
+static int command_system_lock(int argc, char **argv)
 {
 	force_locked = 1;
 	return EC_SUCCESS;
@@ -1525,7 +1525,7 @@ DECLARE_SAFE_CONSOLE_COMMAND(syslock, command_system_lock, NULL,
  * Modify and print the sleep mask which controls access to deep sleep
  * mode in the idle task.
  */
-static int command_sleepmask(int argc, const char **argv)
+static int command_sleepmask(int argc, char **argv)
 {
 #ifdef CONFIG_CMD_SLEEPMASK_SET
 	int v;
@@ -1557,7 +1557,7 @@ DECLARE_SAFE_CONSOLE_COMMAND(sleepmask, command_sleepmask,
 #endif
 
 #ifdef CONFIG_CMD_JUMPTAGS
-static int command_jumptags(int argc, const char **argv)
+static int command_jumptags(int argc, char **argv)
 {
 	const struct jump_tag *t;
 	int used = 0;
@@ -1582,7 +1582,7 @@ DECLARE_CONSOLE_COMMAND(jumptags, command_jumptags, NULL, "List jump tags");
 #endif /* CONFIG_CMD_JUMPTAGS */
 
 #ifdef CONFIG_EMULATED_SYSRQ
-static int command_sysrq(int argc, const char **argv)
+static int command_sysrq(int argc, char **argv)
 {
 	char key = 'x';
 
@@ -1598,7 +1598,7 @@ DECLARE_CONSOLE_COMMAND(sysrq, command_sysrq, "[key]",
 #endif /* CONFIG_EMULATED_SYSRQ */
 
 #ifdef CONFIG_CMD_RESET_FLAGS
-static int command_rflags(int argc, const char **argv)
+static int command_rflags(int argc, char **argv)
 {
 	print_reset_flags(chip_read_reset_flags());
 	ccprintf("\n");

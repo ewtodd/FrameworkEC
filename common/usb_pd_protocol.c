@@ -5041,7 +5041,7 @@ static int remote_flashing(int argc, char **argv)
 }
 #endif /* defined(CONFIG_CMD_PD) && defined(CONFIG_CMD_PD_FLASH) */
 
-static int command_pd(int argc, const char **argv)
+static int command_pd(int argc, char **argv)
 {
 	int port;
 	char *e;

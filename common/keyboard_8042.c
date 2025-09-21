@@ -1146,7 +1146,7 @@ test_mockable void keyboard_update_button(enum keyboard_button_type button,
 /*****************************************************************************/
 /* Console commands */
 #ifdef CONFIG_CMD_KEYBOARD
-static int command_typematic(int argc, const char **argv)
+static int command_typematic(int argc, char **argv)
 {
 	int i;
 
@@ -1168,7 +1168,7 @@ static int command_typematic(int argc, const char **argv)
 	return EC_SUCCESS;
 }
 
-static int command_codeset(int argc, const char **argv)
+static int command_codeset(int argc, char **argv)
 {
 	if (argc == 2) {
 		int set = strtoi(argv[1], NULL, 0);
@@ -1187,7 +1187,7 @@ static int command_codeset(int argc, const char **argv)
 	return EC_SUCCESS;
 }
 
-static int command_controller_ram(int argc, const char **argv)
+static int command_controller_ram(int argc, char **argv)
 {
 	int index;
 
@@ -1205,7 +1205,7 @@ static int command_controller_ram(int argc, const char **argv)
 	return EC_SUCCESS;
 }
 
-static int command_keyboard_log(int argc, const char **argv)
+static int command_keyboard_log(int argc, char **argv)
 {
 	int i;
 
@@ -1248,7 +1248,7 @@ static int command_keyboard_log(int argc, const char **argv)
 	return EC_SUCCESS;
 }
 
-static int command_keyboard(int argc, const char **argv)
+static int command_keyboard(int argc, char **argv)
 {
 	int ena;
 
@@ -1263,7 +1263,7 @@ static int command_keyboard(int argc, const char **argv)
 	return EC_SUCCESS;
 }
 
-static int command_8042_internal(int argc, const char **argv)
+static int command_8042_internal(int argc, char **argv)
 {
 	int i;
 
@@ -1320,7 +1320,7 @@ DECLARE_CONSOLE_COMMAND(kbd, command_keyboard, "[on | off]",
 			"Print or toggle keyboard info");
 #endif
 
-static int command_8042(int argc, const char **argv)
+static int command_8042(int argc, char **argv)
 {
 	if (argc >= 2) {
 		if (!strcasecmp(argv[1], "internal"))
@@ -1338,7 +1338,7 @@ static int command_8042(int argc, const char **argv)
 		else
 			return EC_ERROR_PARAM1;
 	} else {
-		const char *ctlram_argv[] = { "ctrlram", "0" };
+		char *ctlram_argv[] = { "ctrlram", "0" };
 
 		ccprintf("\n- Typematic:\n");
 		command_typematic(argc, argv);
@@ -1481,7 +1481,7 @@ void simulate_keyboard(uint16_t scancode, int is_pressed)
 		clear_typematic_key();
 
 	if (keystroke_enabled) {
-		i8042_send_to_host(len, scan_code, CHAN_KBD,0);
+		i8042_send_to_host(len, scan_code, CHAN_KBD, 0);
 		task_wake(TASK_ID_KEYPROTO);
 	}
 }

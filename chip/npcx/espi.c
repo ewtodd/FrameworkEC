@@ -687,7 +687,7 @@ void espi_init(void)
 		espi_enable_vw_int(&espi_vw_int_list[i]);
 }
 
-static int command_espi(int argc, const char **argv)
+static int command_espi(int argc, char **argv)
 {
 	uint32_t chan;
 	char *e;

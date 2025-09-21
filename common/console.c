@@ -85,7 +85,7 @@ enum extended_key_code {
  * @return EC_SUCCESS.  If more than MAX_ARGS_PER_COMMAND words are found,
  *	discards the excess and returns EC_ERROR_OVERFLOW.
  */
-static int split_words(char *input, int *argc, const char **argv)
+static int split_words(char *input, int *argc, char **argv)
 {
 	char *c;
 	int in_word = 0;
@@ -167,7 +167,7 @@ static const char *const errmsgs[] = {
 test_export_static enum ec_error_list handle_command(char *input)
 {
 	const struct console_command *cmd;
-	const char *argv[MAX_ARGS_PER_COMMAND];
+	char *argv[MAX_ARGS_PER_COMMAND];
 	int argc = 0;
 	int rv;
 #ifdef CONFIG_EXPERIMENTAL_CONSOLE
@@ -692,7 +692,7 @@ void console_task(void *u)
 /* Console commands */
 
 /* Command handler - prints help. */
-static int command_help(int argc, const char **argv)
+static int command_help(int argc, char **argv)
 {
 	const int ncmds = __cmds_end - __cmds;
 	const int cols = 5; /* printing in five columns */
@@ -766,7 +766,7 @@ DECLARE_SAFE_CONSOLE_COMMAND(help, command_help, "[ list | <name> ]",
 			     "Print command help");
 
 #ifdef CONFIG_CONSOLE_HISTORY
-static int command_history(int argc, const char **argv)
+static int command_history(int argc, char **argv)
 {
 	int i;
 

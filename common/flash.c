@@ -1211,7 +1211,7 @@ void crec_flash_print_region_info(void)
 #ifdef CONFIG_CMD_FLASHINFO
 #define BIT_TO_ON_OFF(value, mask) \
 	((((value) & (mask)) == (mask)) ? "ON" : "OFF")
-static int command_flash_info(int argc, const char **argv)
+static int command_flash_info(int argc, char **argv)
 {
 	int i, flags;
 
@@ -1270,7 +1270,7 @@ DECLARE_SAFE_CONSOLE_COMMAND(flashinfo, command_flash_info, NULL,
 #endif /* CONFIG_CMD_FLASHINFO */
 
 #ifdef CONFIG_CMD_FLASH
-static int command_flash_erase(int argc, const char **argv)
+static int command_flash_erase(int argc, char **argv)
 {
 	int offset = -1;
 	int size = -1;
@@ -1289,7 +1289,7 @@ static int command_flash_erase(int argc, const char **argv)
 DECLARE_CONSOLE_COMMAND(flasherase, command_flash_erase, "offset size",
 			"Erase flash");
 
-static int command_flash_write(int argc, const char **argv)
+static int command_flash_write(int argc, char **argv)
 {
 	int offset = -1;
 	int size = -1;
@@ -1329,7 +1329,7 @@ static int command_flash_write(int argc, const char **argv)
 DECLARE_CONSOLE_COMMAND(flashwrite, command_flash_write, "offset size",
 			"Write pattern to flash");
 
-static int command_flash_read(int argc, const char **argv)
+static int command_flash_read(int argc, char **argv)
 {
 	int offset = -1;
 	int size = 256;
@@ -1378,7 +1378,7 @@ DECLARE_CONSOLE_COMMAND(flashread, command_flash_read, "offset [size]",
 #endif
 
 #ifdef CONFIG_CMD_FLASH_WP
-static int command_flash_wp(int argc, const char **argv)
+static int command_flash_wp(int argc, char **argv)
 {
 	int val;
 

@@ -731,7 +731,7 @@ void ocpc_init(struct ocpc_data *ocpc)
 	board_ocpc_init(ocpc);
 }
 
-static int command_ocpcdebug(int argc, const char **argv)
+static int command_ocpcdebug(int argc, char **argv)
 {
 	if (argc < 2)
 		return EC_ERROR_PARAM_COUNT;
@@ -761,7 +761,7 @@ DECLARE_SAFE_CONSOLE_COMMAND(ocpcdebug, command_ocpcdebug,
 			     "Each segment is 5% of current target. All shows"
 			     " both. Disable shows no debug output.");
 
-static int command_ocpcpid(int argc, const char **argv)
+static int command_ocpcpid(int argc, char **argv)
 {
 	int *num, *denom;
 
@@ -799,7 +799,7 @@ DECLARE_SAFE_CONSOLE_COMMAND(ocpcpid, command_ocpcpid,
 			     "[<k/p/d> <numerator> <denominator>]",
 			     "Show/Set PID constants for OCPC PID loop");
 
-static int command_ocpcdrvlmt(int argc, const char **argv)
+static int command_ocpcdrvlmt(int argc, char **argv)
 {
 	if (argc == 2) {
 		drive_limit = atoi(argv[1]);

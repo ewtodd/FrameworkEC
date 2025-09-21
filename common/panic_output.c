@@ -370,9 +370,8 @@ ENABLE_GCC_WARNING("-Winfinite-recursion")
 #ifdef CONFIG_CMD_CRASH_NESTED
 static bool command_crash_nested_enabled;
 static int command_crash_nested_argc;
-static const char **command_crash_nested_argv;
-test_mockable_static void command_crash_nested_enable(int argc,
-						      const char **argv)
+static char **command_crash_nested_argv;
+test_mockable_static void command_crash_nested_enable(int argc, char **argv)
 {
 	command_crash_nested_argc = argc;
 	command_crash_nested_argv = argv;
@@ -385,7 +384,7 @@ test_mockable_static void command_crash_nested_disable(void)
 /* Forward declare command_crash so it can be referenced in
  * command_crash_nested_handler.
  */
-static int command_crash(int argc, const char **argv);
+static int command_crash(int argc, char **argv);
 /*
  * Called from the panic handler.
  * Triggers a nested crash when enabled.
@@ -404,7 +403,7 @@ int command_crash_nested_handler(void)
 
 /*****************************************************************************/
 /* Console commands */
-static int command_crash(int argc, const char **argv)
+static int command_crash(int argc, char **argv)
 {
 	if (argc < 2)
 		return EC_ERROR_PARAM1;
@@ -488,14 +487,14 @@ DECLARE_CONSOLE_COMMAND(crash, command_crash,
 );
 
 #ifdef TEST_BUILD
-int test_command_crash(int argc, const char **argv)
+int test_command_crash(int argc, char **argv)
 {
 	return command_crash(argc, argv);
 }
 #endif /* TEST_BUILD*/
 #endif /* CONFIG_CMD_CRASH */
 
-static int command_panicinfo(int argc, const char **argv)
+static int command_panicinfo(int argc, char **argv)
 {
 	struct panic_data *const pdata_ptr = panic_get_data();
 

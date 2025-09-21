@@ -935,7 +935,7 @@ DECLARE_CONSOLE_COMMAND(flash_tristate, command_flash_tristate, "[on | off]",
 			"Tristate spi flash pins");
 #endif /* CONFIG_CMD_FLASH_TRISTATE */
 
-static int command_flash_chip(int argc, const char **argv)
+static int command_flash_chip(int argc,  char **argv)
 {
 	uint8_t jedec_id[3];
 	uint8_t sr1, sr2;

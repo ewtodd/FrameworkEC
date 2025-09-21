@@ -818,7 +818,7 @@ static void usb_mux_reset_in_g3(void)
 DECLARE_HOOK(HOOK_CHIPSET_HARD_OFF, usb_mux_reset_in_g3, HOOK_PRIO_DEFAULT);
 
 #ifdef CONFIG_CMD_TYPEC
-static int command_typec(int argc, const char **argv)
+static int command_typec(int argc,  char **argv)
 {
 	const char *const mux_name[] = { "none", "usb", "dp", "dock" };
 	char *e;
@@ -926,7 +926,7 @@ static enum ec_status hc_usb_pd_mux_ack(struct host_cmd_handler_args *args)
 DECLARE_HOST_COMMAND(EC_CMD_USB_PD_MUX_ACK, hc_usb_pd_mux_ack, EC_VER_MASK(0));
 
 #ifdef CONFIG_CMD_RETIMER
-static int console_command_retimer(int argc, const char **argv)
+static int console_command_retimer(int argc, char **argv)
 {
 	char rw, *e;
 	uint32_t reg, data, val = 0;

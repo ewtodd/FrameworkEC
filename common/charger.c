@@ -213,7 +213,7 @@ void print_charger_prochot(int chgnum)
 		chg_chips[chgnum].drv->dump_prochot(chgnum);
 }
 
-static int command_charger(int argc, const char **argv)
+static int command_charger(int argc, char **argv)
 {
 	int d;
 	char *e;

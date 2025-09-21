@@ -168,7 +168,7 @@ void cflush(void)
 
 #ifdef CONFIG_CONSOLE_CHANNEL
 /* Set active channels */
-static int command_ch(int argc, const char **argv)
+static int command_ch(int argc, char **argv)
 {
 	int i;
 	char *e;

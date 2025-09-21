@@ -187,7 +187,7 @@ void throttle_ap_c10_input_interrupt(enum gpio_signal signal)
 /*****************************************************************************/
 /* Console commands */
 #ifdef CONFIG_CMD_APTHROTTLE
-static int command_apthrottle(int argc, const char **argv)
+static int command_apthrottle(int argc, char **argv)
 {
 	int i;
 	uint32_t tmpval;
