@@ -277,7 +277,7 @@ int hotkey_F1_F12(uint16_t *key_code, uint16_t fn, int8_t pressed)
 	switch (prss_key) {
 	case SCANCODE_F1: /* SPEAKER_MUTE */
 		if (fn_table_media_set(pressed, KB_FN_F1))
-			*key_code = SCANCODE_BRIGHTNESS_DOWN;
+			*key_code = SCANCODE_VOLUME_MUTE;
 		break;
 	case SCANCODE_F2: /* VOLUME_DOWN */
 		if (fn_table_media_set(pressed, KB_FN_F2))
