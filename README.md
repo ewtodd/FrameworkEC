@@ -2,6 +2,8 @@
 
 This is a fork of the ChromiumOS embedded controller firmware. It contains only the board banshee, aka the Framework Laptop Chromebook. This version of the banshee EC is designed to make the keyboard layout standard (and add functionality to function keys) so that the Chromebook can be used with Linux.
 
+There is a flake.nix file to provide the necessary dependencies to compile the firmware. It can be compiled easily by running the build-ec.sh script.
+
 [TOC]
 
 > **Note** - This document covers the legacy Chrome EC implementation. The
