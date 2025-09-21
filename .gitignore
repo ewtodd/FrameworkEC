@@ -1,0 +1,34 @@
+build/
+/private*/
+# A "local" directory for hiding scripts and artifacts from git.
+local/
+*~
+*.swp
+tags
+TAGS
+/ctags
+cscope.*
+.tests-passed
+.failedboards/
+.sizes.txt
+.gdb_history
+# Git commit message template (see https://crbug.com/gerrit/10963)
+.gitmessage
+# An empty file that BoringSSL leaves laying around.
+libcrypto.gcno
+
+# Clion IDE
+
+# Python ignores
+*.pyc
+__pycache__
+*.egg-info
+.hypothesis/
+
+# Clangd language server
+.cache/clangd/index/*
+compile_commands.json
+
+# Twister test output directories
+twister-out*
+flash.bin
