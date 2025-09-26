@@ -247,7 +247,7 @@ void fnkey_shutdown(void)
 	Fn_key &= ~FN_LOCKED;
 	Fn_key &= ~FN_PRESSED;
 }
-DECLARE_HOOK(HOOK_CHIPSET_SHUTDOWN, fnkey_shutdown, HOOK_PRIO_DEFAULT);
+DECLARE_HOOK(HOOK_CHIPSET_SUSPEND, fnkey_shutdown, HOOK_PRIO_DEFAULT);
 
 void fnkey_startup(void)
 {

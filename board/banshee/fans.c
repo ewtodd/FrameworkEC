@@ -70,6 +70,16 @@ static void fan_slow(void)
 	pwm_set_duty(PWM_CH_FAN, duty_pct);
 }
 
+static void fan_medium(void)
+{
+	const int duty_pct = 50;
+
+	ccprints("%s: speed %d%%", __func__, duty_pct);
+
+	pwm_enable(PWM_CH_FAN, 1);
+	pwm_set_duty(PWM_CH_FAN, duty_pct);
+}
+
 static void fan_max(void)
 {
 	const int duty_pct = 100;
@@ -83,7 +93,7 @@ static void fan_max(void)
 DECLARE_HOOK(HOOK_INIT, fan_slow, HOOK_PRIO_DEFAULT);
 DECLARE_HOOK(HOOK_CHIPSET_SUSPEND, fan_slow, HOOK_PRIO_DEFAULT);
 DECLARE_HOOK(HOOK_CHIPSET_SHUTDOWN, fan_slow, HOOK_PRIO_DEFAULT);
-DECLARE_HOOK(HOOK_CHIPSET_RESET, fan_max, HOOK_PRIO_FIRST);
-DECLARE_HOOK(HOOK_CHIPSET_RESUME, fan_max, HOOK_PRIO_DEFAULT);
+DECLARE_HOOK(HOOK_CHIPSET_RESET, fan_medium, HOOK_PRIO_FIRST);
+DECLARE_HOOK(HOOK_CHIPSET_RESUME, fan_medium, HOOK_PRIO_DEFAULT);
 
 #endif /* CONFIG_FANS */
