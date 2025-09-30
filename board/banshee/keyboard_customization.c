@@ -5,12 +5,14 @@
 
 #include "common.h"
 #include "gpio.h"
+#include "hooks.h"
 #include "keyboard_8042_sharedlib.h"
 #include "keyboard_config.h"
 #include "keyboard_customization.h"
 #include "keyboard_protocol.h"
 #include "keyboard_raw.h"
 #include "keyboard_scan.h"
+#include "system.h"
 
 enum gpio_signal signal;
 static int colinv;
@@ -177,7 +179,34 @@ int fn_table_set(int8_t pressed, uint32_t fn_bit)
 	return false;
 }
 
-int hotkey_F1_F12(uint16_t *key_code, uint16_t fn, int8_t pressed)
+static void fnkey_shutdown(void)
+{
+	uint8_t current_kb = 0;
+
+	if (Fn_key & FN_LOCKED) {
+		current_kb |= 0x80;
+	}
+	system_set_bbram(SYSTEM_BBRAM_IDX_KBSTATE, current_kb);
+
+	Fn_key &= ~FN_LOCKED;
+	Fn_key &= ~FN_PRESSED;
+}
+DECLARE_HOOK(HOOK_CHIPSET_SUSPEND, fnkey_shutdown, HOOK_PRIO_DEFAULT);
+
+static void fnkey_startup(void)
+{
+	uint8_t current_kb = 0;
+
+	if (system_get_bbram(SYSTEM_BBRAM_IDX_KBSTATE, &current_kb) ==
+	    EC_SUCCESS) {
+		if (current_kb & 0x80) {
+			Fn_key |= FN_LOCKED;
+		}
+	}
+}
+DECLARE_HOOK(HOOK_CHIPSET_STARTUP, fnkey_startup, HOOK_PRIO_DEFAULT);
+
+int hotkey_F1_F6(uint16_t *key_code, uint16_t fn, int8_t pressed)
 {
 	const uint16_t prss_key = *key_code;
 
@@ -215,58 +244,9 @@ int hotkey_F1_F12(uint16_t *key_code, uint16_t fn, int8_t pressed)
 			*key_code = SCANCODE_NEXT_TRACK;
 		break;
 
-		//	case SCANCODE_F7: /* DISPLAY_BRIGHTNESS_DOWN */
-		//		if (fn_table_media_set(pressed, KB_FN_F7))
-		//			*key_code = SCANCODE_BRIGHTNESS_DOWN;
-		//
-		//		break;
-		//	case SCANCODE_F8: /* DISPLAY_BRIGHTNESS_UP */
-		//		if (fn_table_media_set(pressed, KB_FN_F8))
-		//			*key_code = SCANCODE_BRIGHTNESS_UP;
-		//		break;
 	default:
 		return EC_SUCCESS;
 	}
-	return EC_SUCCESS;
-}
-
-int hotkey_special_key(uint16_t *key_code, int8_t pressed)
-{
-	const uint16_t prss_key = *key_code;
-
-	switch (prss_key) {
-	case SCANCODE_DELETE: /* TODO: INSERT */
-		if (fn_table_set(pressed, KB_FN_DELETE))
-			*key_code = 0xe070;
-		break;
-	case SCANCODE_K: /* TODO: SCROLL_LOCK */
-		if (fn_table_set(pressed, KB_FN_K))
-			*key_code = SCANCODE_SCROLL_LOCK;
-		break;
-	case SCANCODE_S: /* TODO: SYSRQ */
-		/*if (!fn_table_set(pressed, KB_FN_S))*/
-
-		break;
-	case SCANCODE_LEFT: /* HOME */
-		if (fn_table_set(pressed, KB_FN_LEFT))
-			*key_code = 0xe06c;
-		break;
-	case SCANCODE_RIGHT: /* END */
-		if (fn_table_set(pressed, KB_FN_RIGHT))
-			*key_code = 0xe069;
-		break;
-	case SCANCODE_UP: /* PAGE_UP */
-		if (fn_table_set(pressed, KB_FN_UP))
-			*key_code = 0xe07d;
-		break;
-	case SCANCODE_DOWN: /* PAGE_DOWN */
-		if (fn_table_set(pressed, KB_FN_DOWN))
-			*key_code = 0xe07a;
-		break;
-	default:
-		return EC_SUCCESS;
-	}
-
 	return EC_SUCCESS;
 }
 
@@ -282,30 +262,6 @@ int functional_hotkey(uint16_t *key_code, int8_t pressed)
 					Fn_key &= ~FN_LOCKED;
 				else
 					Fn_key |= FN_LOCKED;
-			}
-			return EC_ERROR_UNIMPLEMENTED;
-		}
-		break;
-	case SCANCODE_B:
-		/* BREAK_KEY */
-		if (fn_table_set(pressed, KB_FN_B)) {
-			if (pressed) {
-				simulate_keyboard(0xe07e, 1);
-				simulate_keyboard(0xe0, 1);
-				simulate_keyboard(0x7e, 0);
-			}
-			return EC_ERROR_UNIMPLEMENTED;
-		}
-		break;
-	case SCANCODE_P:
-		/* PAUSE_KEY */
-		if (fn_table_set(pressed, KB_FN_P)) {
-			if (pressed) {
-				simulate_keyboard(0xe114, 1);
-				simulate_keyboard(0x77, 1);
-				simulate_keyboard(0xe1, 1);
-				simulate_keyboard(0x14, 0);
-				simulate_keyboard(0x77, 0);
 			}
 			return EC_ERROR_UNIMPLEMENTED;
 		}
@@ -328,7 +284,7 @@ enum ec_error_list keyboard_scancode_callback(uint16_t *make_code,
 		return EC_ERROR_UNIMPLEMENTED;
 	}
 
-	r = hotkey_F1_F12(make_code, Fn_key, pressed);
+	r = hotkey_F1_F6(make_code, Fn_key, pressed);
 	if (r != EC_SUCCESS)
 		return r;
 	/*
@@ -338,10 +294,6 @@ enum ec_error_list keyboard_scancode_callback(uint16_t *make_code,
 	 */
 	if (!(Fn_key & FN_PRESSED) && !fn_key_table)
 		return EC_SUCCESS;
-
-	r = hotkey_special_key(make_code, pressed);
-	if (r != EC_SUCCESS)
-		return r;
 
 	r = functional_hotkey(make_code, pressed);
 	if (r != EC_SUCCESS)
