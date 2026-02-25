@@ -53,7 +53,7 @@ static const struct ec_response_keybd_config banshee_kb_id2 = {
 		TK_SNAPSHOT,		/* T5 */
 		TK_BRIGHTNESS_DOWN,	/* T6 */
 		TK_BRIGHTNESS_UP,	/* T7 */
-		TK_KBD_BKLIGHT_TOGGLE,	/* T8 */
+		TK_ABSENT,		/* T8 */
 		TK_PLAY_PAUSE,		/* T9 */
 		TK_VOL_MUTE,		/* T10 */
 		TK_VOL_DOWN,		/* T11 */

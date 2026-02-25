@@ -129,10 +129,6 @@
 #define GPIO_SYS_RESET_L GPIO_SYS_RST_ODL
 #define GPIO_WP_L GPIO_EC_WP_ODL
 
-#define GPIO_ID_1_EC_KB_BL_EN GPIO_EC_BATT_PRES_ODL
-
-/* System has back-lit keyboard */
-#define CONFIG_PWM_KBLIGHT
 
 /* I2C Bus Configuration */
 
@@ -242,7 +238,6 @@ enum pwm_channel {
 	PWM_CH_SIDE_LED_R = 0, /* PWM0 (Red charger) */
 	PWM_CH_SIDE_LED_G, /* PWM1 (Green charger) */
 	PWM_CH_SIDE_LED_B, /* PWM2 (Blue charger) */
-	PWM_CH_KBLIGHT, /* PWM3 */
 	PWM_CH_FAN, /* PWM5 */
 	PWM_CH_POWER_LED_W, /* PWM7 (white LED) */
 	PWM_CH_COUNT

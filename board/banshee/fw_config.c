@@ -20,7 +20,7 @@ BUILD_ASSERT(sizeof(fw_config) == sizeof(uint32_t));
  * initialized.
  */
 static const union banshee_cbi_fw_config fw_config_defaults = {
-	.kb_bl = KEYBOARD_BACKLIGHT_ENABLED,
+	.kb_bl = KEYBOARD_BACKLIGHT_DISABLED,
 };
 
 /****************************************************************************
